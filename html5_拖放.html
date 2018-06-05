@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #test{
+            height: 300px;
+            width: 300px;
+            text-align: center;
+            /* display: table-cell; */
+            /* vertical-align: middle; */
+            border: 5px dashed greenyellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+      
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <img src="./xingm.png" alt="" id="img" draggable="true">
+      <div id="test">
+
+      </div>
+    </div>
+    <script>
+        let img = document.getElementById('img')
+        let test = document.getElementById('test')
+        test.ondragover = ()=>{
+            event.preventDefault();
+        }
+        test.ondrop = ()=>{
+            test.appendChild(img)
+        }
+
+        img.ondragstart = ()=>{
+            event.dataTransfer.setData("tm","hello")
+        }
+
+        img.ondragend = ()=>{
+            console.log(event.dataTransfer.getData("tm"))
+        }
+    
+    </script>
+</body>
+
+</html>

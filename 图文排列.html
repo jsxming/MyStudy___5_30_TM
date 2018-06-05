@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .item {
+            position: relative;
+            background: #DDDDDD;
+            border: 1px solid #ccc;
+            box-shadow: 0 3px 8px;
+            font-family: '微软雅黑';
+            padding: 10px 15px;
+            margin-bottom: 45px;
+        }
+
+        .item::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        h1 {
+            font-weight: 500;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .pa {
+            position: absolute;
+            top: -80px;
+        }
+
+        .child {
+            width: 300px;
+            background: #ccc;
+            margin: 45px;
+            border: 1px solid burlywood;
+            float: left;
+            padding-bottom: 500px;
+            margin-bottom: -500px;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="item">
+        <h1>正常上下排列</h1>
+        <img src="./img/xingm.png" alt="">
+        <p>
+            全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。 全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。
+            全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。
+        </p>
+    </div>
+
+    <div class="item">
+        <h1>图片右边排列</h1>
+        <img src="./img/xingm.png" alt="" class="fr">
+        <p>
+            全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。 全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。
+            全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。
+        </p>
+    </div>
+
+    <div class="item">
+        <h1>图片左边排列</h1>
+        <img src="./img/xingm.png" alt="" class="fl">
+        <p>
+            全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。 全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。
+            全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。
+        </p>
+    </div>
+
+    <div class="item">
+        <h1>图片左边排列</h1>
+        <img src="./img/xingm.png" alt="" class="pa">
+        <p>
+            全球数以百万计的网站都是基于 Bootstrap Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。 全球数以百万计的网站都是基于 Bootstrap 构建的。你可以先参观一下我们提供的实例精选或者看一看我们粉丝的网站吧。
+        </p>
+    </div>
+
+    <div class="item overflow">
+        <h1>多列等高布局</h1>
+        <div class="child">
+            <p> 全球数以百万计的网站都是基于 Bootstrap Boots</p>
+            <img src="./img/sunm.png" alt="">
+        </div>
+        <div class="child">
+            <p> 全球数以百万计的网站都是基于 Bootstrap Boots</p>
+            <img src="./img/反贪污贿赂局.png" alt="">
+        </div>
+        <div class="child">
+            <p> 全球数以百万计的网站都是基于 Bootstrap Boots</p>
+            <img src="./img/案件管理办公室.png" alt="">
+        </div>
+    </div>
+
+    <div class="item">
+        <h1>一列固定，一列自适应布局</h1>
+        <div style="width: 300px;height: 200px;background: rebeccapurple" class="fl">
+
+        </div>
+        <div style="width: calc(100%-300px);height: 200px;background: black;" >
+
+        </div>
+    </div>
+
+</body>
+
+</html>
