@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        *::selection{
+            color: #F56C6C;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        li {
+            list-style: none;
+            flex: 1;
+            height: 100px;
+            background: #F56C6C;
+            border: 1px solid white;
+            box-sizing: border-box;
+        }
+
+        .s-item {
+            margin: 110px;
+            height: 400px;
+            background: bisque;
+        }
+
+        .active {
+            background: #409EFF;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="flex">
+                <li class="flex li-item">
+                    <a href="">0001</a>
+                </li>
+                <li class="flex li-item">
+                    <a href="">0002</a>
+                </li>
+                <li class="flex li-item">
+                    <a href="">0003</a>
+                </li>
+                <li class="flex li-item">
+                    <a href="">0004</a>
+                </li>
+                <li class="flex li-item">
+                    <a href="">0005</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div>
+        <section class="s-item">1</section>
+        <section class="s-item">2</section>
+        <section class="s-item">3</section>
+        <section class="s-item">4</section>
+        <section class="s-item">5</section>
+    </div>
+    <script>
+        //页面功能所用知识：函数节流
+        //函数节流的基本思想是指：某些代码不可以在没有间断的情况下连续重复执行
+        let activeEl = document.getElementsByClassName('li-item')[0];
+        activeEl.classList.add('active');
+        let obj = {
+            //保存定时器对象
+            time: null,
+            //保存增加了active类的元素
+            activeEl: activeEl,
+            sitem: document.querySelectorAll('.s-item'),
+            navli: document.querySelectorAll('.li-item'),
+            start() {
+                clearTimeout(this.time);
+                let that = this;
+                this.time = setTimeout(() => {
+                    that.go()
+                }, 30);
+            },
+            //scroll时处理实际逻辑方法
+            go() {
+                that = this;
+                let element = null;
+                let dheihgt = document.documentElement.clientHeight || document.body.clientHeight;
+                for (let i = 0; i < this.sitem.length; i++) {
+                    let obj = that.getElementTop(this.sitem[i]);
+                    console.log(obj.documentScrollTop)
+                    //如果文档的滚动高度+文档的高 大于等于 元素距离文档顶部的距离+元素的高
+                    if (obj.documentScrollTop + dheihgt >= obj.top + this.sitem[i].clientHeight) {
+                        element = this.navli[i]
+                    }
+                }
+                if (element !== null) {
+                    that.activeEl.classList.remove('active')
+                    element.classList.add('active');
+                    that.activeEl = element;
+                }
+            },
+            //获取元素在页面上的偏移量 与 文档滚动的高
+            getElementTop(el) {
+                let documentScrollTop = document.documentElement.scrollTop;
+                let top = el.offsetTop;
+                let current = el.offsetParent;
+                while (current !== null) {
+                    top += current.offsetTop;
+                    current = current.offsetParent;
+                }
+                console.log('当前元素当前在文档中的位置=', top);
+                return {
+                    top: top,
+                    documentScrollTop
+                };
+            }
+        }
+        window.onscroll = () => {
+            obj.start();
+        }
+    </script>
+</body>
+
+</html>
