@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,
+        body {
+            height: 100%;
+        }
+        .model-box {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            transition: all 0.3s linear;
+
+        }
+        .model-content {
+            height: 550px;
+            width: 450px;
+            background: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+        }
+        .hide {
+            opacity: 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .show {
+            display: fixed;
+        }
+        #btn {
+            display: block;
+            margin: 0 auto;
+            width: 180px;
+            color: white;
+            height: 45px;
+            border: 1px;
+            outline: none;
+            background: #67C23A;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <button id="btn">点我触发model</button>
+        <div class="model-box">
+            <div class="model-content">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        let mbox = document.getElementsByClassName('model-box')[0];
+        let mcontent = document.getElementsByClassName('model-content')[0];
+        let button = document.getElementById('btn');
+        mbox.onclick = function () {
+            event.stopPropagation();
+            this.classList.add('hide');
+            setTimeout(() => {
+                this.classList.add('hidden');
+            }, 300);
+        }
+        button.onclick = function () {
+            mbox.classList.remove('hidden');
+            setTimeout(() => {
+                mbox.classList.remove('hide');
+            }, 50);
+        }
+        mcontent.onclick = function () {
+            event.stopPropagation();
+        }
+    </script>
+</body>
+
+</html>
