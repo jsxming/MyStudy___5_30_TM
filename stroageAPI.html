@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="btn">111</button>
+
+    <script>
+        let btn = document.getElementById('btn');
+        btn.onclick = fn;
+
+        function fn(){
+            console.log(111)
+            localStorage.setItem('tm','tt')
+        }
+        
+        //在同源的页面下操作了storage对象才会触发该事件
+        //在本页面不会触发
+        window.addEventListener('storage',function(event){
+            console.log("被修改的key=",event.key);
+            console.log('旧值=',event.oldValue);
+            console.log('新值',event.newValue);
+            console.log('在哪个页面中修改的',event.url);
+            console.log('....暂时不知道这个属性干嘛的',event.stroageArea);
+        },false) 
+        
+    </script>
+</body>
+</html>
