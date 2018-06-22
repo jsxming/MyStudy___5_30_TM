@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>test1</h1>
+    <h1>test1</h1>
+    <div id="vm">
+{{a}}
+    </div>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            data:{
+                a:11
+            },
+            watch:{
+                a(newv,oldv){
+                    console.log(newv,oldv)
+                }
+            },
+            methods:{
+                aa(){
+
+                }
+            },
+            props:{
+
+            },
+            beforeCreate(){
+                //此阶段实例几乎不能被操作
+                console.log('beforeCreated-----------------------')
+                console.log(this.$data);
+                console.log(this.$watch);//能被打印出来~
+                console.log(this.$props);
+                console.log(this.$el);
+                console.log(this.$methods);
+                console.log(this.aa,'============')              
+            },
+            created(){
+                console.log('Created-------------------------')
+                console.log(this.$data); //可见
+                console.log(this.$watch);//可见
+                console.log(this.$props);//可见
+                console.log(this.$el);//未挂在
+                console.log(this.$methods);//可见
+            },
+            beforeMount(){
+                console.log('beforeMount-------------------------')
+                console.log(this.$data);
+                console.log(this.$watch);
+                console.log(this.$props);
+                console.log(this.$el);  //可见
+                console.log(this.$methods);
+            },
+            mounted(){
+                //mounted后属性已全部可见
+                console.log(this.aa,'============')
+                console.log('mounted-------------------------')
+                console.log(this.$data);
+                console.log(this.$watch);
+                console.log(this.$props);
+                console.log(this.$el);
+                console.log(this.$methods);
+            }
+        }).$mount('#vm')
+
+        // let html = `<h2 onclick="fn()">hello javascript</h2>`
+        // let section = document.createElement('section');
+        // section.innerHTML = html;
+        // document.body.appendChild(section);
+
+        // function fn(){
+        //     console.log('hello')
+        // }
+     window.ontouchstart = function(){
+            history.go(-1);
+    }
+    
+    </script>
+</body>
+</html>

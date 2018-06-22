@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">111</button>
+    <script>
+        let btn = document.getElementById('btn');
+        function say(msg,event){
+            this.message =msg;
+            console.log('hello',this.message,event.type)
+        }
+        let i = 0;
+        // btn.addEventListener('click', function () {
+        //     say();
+        //     i++;
+        //     console.log(i)
+        //     if (i > 2) {
+        //         btn.removeEventListener('click', arguments.callee, false)
+        //     }
+        // }, false)
+        btn.addEventListener('click',say.bind(say,'ooo'),false)
+    </script>
+
+</body>
+
+</html>
