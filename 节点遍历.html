@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <p>
+            1111
+        </p>
+        <ul>
+            <li>
+                <a>111111</a>
+                <a>222222</a>
+                <a>333333</a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let box = document.getElementById('box');
+        // node:每个节点
+        let filter = function (node) {
+            //过滤后该遍历器只返回li元素 包含li的子元素
+            //NodeFilter.FILTER_ACCEPT  表示返回该改节点
+            //NodeFilter.FILTER_SKIP    表示不返回不匹配的节点
+            //NodeFilter.FILTER_REJECT  见红宝书331页看与NodeFilter.FILTER_SKIP的区别！
+            return node.tagName.toLowerCase() === 'li' ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+        }
+        //接受的参数
+        // 1.要开始遍历的根对象，
+        // 2.要遍历的节点类型通常是元素，属性，文本节点（SHOW_ELEMENT，SHOW_ATTRIBUTE,SHOW_TEXT）
+        // 3.一个过滤器对象带有一个
+        // 4.是否扩展实体引用的布尔值
+        let treeWalker = document.createTreeWalker(box, NodeFilter.SHOW_ELEMENT, filter, false);
+         // treeWalker 对象的属性：currentNode 通过该属性可以动态修改遍历器的根对象也就是这里的box
+        // treeWalker 对象的方法：
+        // nextNode() 遍历下一个元素
+        // previousNode() 遍历上一个元素
+        // parentNode() 遍历当前节点的父节点
+        // firstChild() 遍历当前节点的第一个子节点
+        // lastChild() 遍历当前节点的最后一个子节点
+        // nextSibling() 遍历下一个同辈节点
+        // previousSibling() 遍历上一个同辈节点
+        let node = treeWalker.nextNode();
+        while (node !== null) {
+            console.log(node);
+            node = treeWalker.nextNode();
+        }
+    </script>
+</body>
+
+</html>
