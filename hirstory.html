@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        a {
+            font-size: 24px;
+            margin: 45px;
+        }
+
+        div {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <ul>
+                <li><a href="?name=red">A</a></li>
+                <li><a href="?name=blue">B</a></li>
+                <li><a href="?name=green">C</a></li>
+            </ul>
+            <div style='width: 100px; height: 100px;'></div>
+            <script>
+                function setBackgroundColor(color) {
+                    document.querySelector('div').style.backgroundColor = color;
+                }
+            
+                /**
+                 * [color description]
+                 * @type {String}
+                 * 1. data 参数
+                 * 2. title
+                 * 3. url
+                 */
+                // 将页面替换成当前url的页面
+                history.replaceState({
+                    color: 'red'
+                }, '当前为A页面', "?name=a");
+                setBackgroundColor("red");
+            
+                // 浏览器前进后退就会触发popstate事件， 通过事件的 state 可以获得参数值
+                window.onpopstate = function (event) {
+                    // console.log(event.state);
+                    setBackgroundColor(event.state.color);
+                }
+            
+                let aObj = document.querySelectorAll('a');
+                aObj.forEach((item) => {
+                    item.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        // 请求地址
+                        let query = this.href.split('?')[1];
+                        // 请求的参数值
+                        let color = query.split('=')[1];
+                        // history.state：获取历史栈中最顶端的state数据（即history.pushState中的第一个参数）
+                        if(history.state.color !== color) {
+                            setBackgroundColor(color);
+                            // 放入历史记录中
+                            history.pushState({color: color},color, location.href.split('?')[0] + '?' + query);
+                        }
+                    })
+                })
+            </script> -->
+    <h1>1111111111</h1>
+    <a href="#" data-href="#/box1">0001</a>
+    <a href="#" data-href="#/box2">0002</a>
+    <a href="#" data-href="#/box3">0003</a>
+
+    <div id="box1" style="font-size: 50px;">11111</div>
+    <div id="box2" style="font-size: 50px;">222</div>
+    <div id="box3" style="font-size: 50px;">333</div>
+    <iframe src="./hirstory路由.html" ></iframe>
+    <script>
+        window.addEventListener('beforeunload', function(event) {
+        console.log('I am the 1st one.');
+      });
+      window.addEventListener('unload', function(event) {
+        console.log('I am the 3rd one.');
+      });
+
+  
+        window.addEventListener("popstate", () => {
+            console.log(event.state);
+            if(event.state.text !==null){
+
+            }
+        }, false)
+
+        window.onclose = function(){
+            console.log(1);
+        }
+
+     
+    </script>
+</body>
+
+</html>

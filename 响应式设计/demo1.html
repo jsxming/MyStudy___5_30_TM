@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background: #fff;
+    }
+
+    @media (max-width:768px) {
+        body {
+            background-color: red;
+        }
+    }
+
+    @media (max-width:1024px) {
+        body {
+            background: black;
+        }
+    }
+    h1{
+        width: 300px;
+        padding: 10px 10px;
+        text-align: center;
+        background: #000;
+        color: white;
+    }
+</style>
+
+<body>
+    <h1>
+        hello world
+    </h1>
+    <img src="" sizes="(max-width:640px) 100vw,(max-width:960px) 50vw,calc(100vw/3)" srcset="lg.png 1024w,md.png 640w,sm.png 320px">
+
+</body>
+
+</html>
