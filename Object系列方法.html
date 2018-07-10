@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        let person = {
+            name: 'tm',
+            _age: 20
+        }
+        //1.注意访问器属性与数据属性不能同时定义在一起
+        //2.定义 get 和 set 的时候，单独定义 get 表示该属性只可访问，不可重写
+        //3.数据属性和访问器属性不能多次定义
+
+        //定义数据属性
+        //person:要修改的那个对象
+        //age：要修改第一个参数的哪个属性？
+        //{}：描述符对象
+        Object.defineProperty(person, 'age', {
+            //能否通过delete删除属性而从新定义属性
+            configurable: true,
+            //能否修改该属性的值
+            writable: true,
+            //能否通过for in 返回该属性
+            enumerable: true,
+            //属性的值
+            value: 20,
+        })
+        //定义访问器属性
+        Object.defineProperty(person, 'age', {
+            get: function () {
+                return age; //最好不要写成（return this.age）可能会造成无限递归，内存爆炸。。。
+            },
+            //设置该值时调用的函数
+            set: function (newValue) {
+                person._age = newValue;
+                if (newValue > 2004) {
+                    this.tm = 'hello'
+                }
+            }
+        })
+        //    person.age = 20015;
+        console.log(person._age);
+    </script>
+</body>
+
+</html>

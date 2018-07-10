@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div onclick="fn()">click</div> -->
+
+    <script>
+        //javascript语言精粹学习
+        Function.prototype.method = function (name, func) {
+            this.prototype[name] = func;
+            return this;
+        }
+
+        let re = fn();
+        document.writeln('调用一个函数总是会返回一个值，如果没有指定值，则返回undefined')
+        console.log('fn的返回值是:', re);
+
+        function fn() {
+            //函数的arguments对象仅仅是一个类似数组的对象，拥有length属性，但没有数组的所有方法
+            document.writeln('arguments的length是：', arguments.length)
+            //转换为数组对象
+            let args = Array.from(arguments);
+            console.log(Array.isArray(args)); //true
+        }
+
+        function Child() {
+            this.name = "tm",
+                this.age = 22,
+                this.sex = '男',
+                this.work = function () {
+                    console.log('study')
+                }
+        }
+
+        function Parent() {
+            this.name = 'hello',
+                this.age = 40,
+                this.sex = '女',
+                this.work = function () {
+                    document.writeln('do work')
+                },
+                this.book = "天天向上"
+        }
+
+        let child1 = new Child();
+        child1.prototype = new Parent();
+        //hasOwnProperty方法不会检测原型链中的属性
+        let bBook = child1.hasOwnProperty('book');
+        console.log(bBook); //true
+        //js的两种注释，（作者建议使用这种）
+        /*
+         */
+
+
+        //in操作符不会变遍历原型对象中的属性
+        for (attr in child1) {
+            console.log(attr + '属性=', typeof child1[attr]);
+        }
+
+        //delete 运算符用来删除对象的属性，它会移除对象中确定包含的属性他不会触及原型链中的任何对象
+        // delete child1.name;
+        console.log(child1.name)
+
+
+        //>异常机制
+        let add  = function(a,b){
+            if(typeof a !== 'number' || typeof b !== 'number'){
+                throw {
+                    name:'numberErr',
+                    message:'参数不是数字类型'
+                }
+            }
+            return a+b;
+        }
+        let init = function(){
+            try {
+                //当try代码块抛出了一个异常，控制权就会跳转到他的carch从句
+                add();
+            } catch (e) {
+                console.log(e.name,e.message)//log(numberErr,参数不是数字类型)
+            }
+        }()
+    </script>
+</body>
+
+</html>
