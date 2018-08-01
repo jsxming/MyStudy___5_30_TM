@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div style="text-align: center;">
+        <canvas id="cav" width="1200" height="600" style="border: 1px solid"></canvas>
+    </div>
+
+</body>
+<script>
+    let canvas = document.getElementById('cav');
+    let context = canvas.getContext('2d');
+    context.lineJoin='bevel';
+    
+    context.lineWidth = 10;
+    context.strokeRect(300, 300, 100, 100);
+    context.fillRect(100, 100, 100, 100);
+
+    context.canvas.onmousedown = () => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+
+</html>

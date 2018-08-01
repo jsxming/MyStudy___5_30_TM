@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .hh{
+            position: relative;
+        }
+
+        .hh:hover::before{
+           
+            content: attr(data-title);
+            display: inline-block;
+            position: absolute;
+            white-space: nowrap;
+            top: 100%;
+            border: 1px solid;
+            padding: 5px;
+            font-size: 14px;
+        }
+        .chat-msg{
+            width: 300px;
+            height: 80px;
+            border: 1px solid #ccc;
+            position: relative;
+            margin-left: 200px;
+            text-align: center;
+            line-height: 80px;
+            border-radius: 5px;
+            background-color: #fff;
+            /* 添加阴影 */
+            filter: drop-shadow(0 0 2px #999) 
+            /* box-shadow: 0 0 2px #999; */
+        }
+        .chat-msg::before{
+            content: "";
+            position: absolute;
+            left: -17px;
+            top: 27px;
+            border-top: 16px solid transparent;
+            border-bottom: 16px solid transparent;
+            border-right: 16px solid #ccc;
+        }
+        /* .chat-msg::after{
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 34px;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-right: 6px solid red;
+        } */
+    </style>
+</head>
+<body>
+    <div class="hh" data-title="hello world">
+             使用attr函数实现提示框 
+    </div>
+
+    <div class="chat-msg">
+        hi,你好,css画三角形
+    </div>
+</body>
+</html>

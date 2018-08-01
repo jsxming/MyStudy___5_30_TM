@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <tree :aaa="aaa"></tree>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('tree', {
+            name: 'tree',
+            template: `<ul>
+                <li v-for="(v,i) in aaa" >
+                    <a>{{v.name}}</a>
+                    <tree :aaa="v.child"></tree>
+                </li>
+            </ul> `,
+            data() {
+                return {
+
+                }
+            },
+            props: {
+                aaa: {
+                    type: Array
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    aaa: [{
+                        name: 'tm',
+                        child: [{
+                            name: '11',
+                            child: [{
+                                name: 'hello',
+                                child:[
+                                    {
+                                        name:'last'
+                                    }
+                                ]
+                            }]
+                        }]
+                    }, {
+                        name: 'aa'
+                    }]
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

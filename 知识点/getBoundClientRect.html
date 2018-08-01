@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #di {
+            height: 300px;
+            margin-top: 1000px;
+            width: 400px;
+            background-color: black;
+            padding: 15px;
+            font-size: 24px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="di">
+        getBoundingClientRect()方法获得元素距离文档上下左右的的距离的对象，这个值是动态的
+        <br> 它会随着文档滚动而变小
+        <ul>
+            <li>
+                top 距离文档顶部的距离
+            </li>
+            <li>
+                left：。。。同理
+            </li>
+            <li>
+                right：。。。同理
+            </li>
+            <li>
+                bottom：。。。同理
+            </li>
+
+        </ul>
+    </div>
+    <script>
+        let d = document.getElementById('di');
+        let hheight = document.documentElement.clientHeight;
+        console.log(d.getBoundingClientRect().top, hheight);
+        window.addEventListener('scroll', () => {
+            // 当top值小于或等于文档的clentHeight的时候就可以认为该元素出现在视口中了
+            //图片懒加载可以用该方法判断图片应该何时赋值src属性
+            console.log(d.getBoundingClientRect().top);
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box-tm{
+            width: 100%;
+            height: 200px;
+            background-color: #ccc;
+            position: relative;
+            padding-left: 300px;
+            margin-bottom: 30px;
+          
+        }
+        aside{
+            width: 300px;
+            height: 100%;
+            background-color: rosybrown;
+            position: absolute;
+            left: 0;
+            top: 0;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+        .main{
+            width: 100%;
+            height: 100%;
+            background-color: aquamarine;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+        .flex{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 300px;
+            position: relative;
+        }
+        .flex aside{
+            min-width: 300px;
+            position: static;
+        }
+        .flex .main{
+            flex: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-tm">
+        <aside>
+            绝对定位+padding-left实现两列自适应布局
+            <br>
+            box-sizing实现绝对定位加pading不会增加盒子的宽高            
+        </aside>
+        <div class="main">
+            main1111111111111111111111111111111111
+        </div>
+    </div>
+
+    <div class="flex">
+        <aside>flex实现两列自适应布局</aside>
+        <div class="main">
+            main11111111111111111111111111111111111111
+        </div>
+    </div>
+</body>
+</html>
