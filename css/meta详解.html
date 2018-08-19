@@ -16,6 +16,10 @@
     <meta http-equiv="refresh" content="300">
     <!-- 强制百度跳入原网页，而不是它转码后的页面 -->
     <meta http-equiv="Cache-Control" content="no-siteapp">
+    <!-- 1.当网站有配套的iphone上的app的时候加入此mate标签能在打开网页的时候提示app的下载（html5 125页） -->
+    <meta name="apple-itunes-app" content="app-id=你的appid" />
+    <!-- 2.可以在ios设备中从主屏直接启动某个页面的时候，显示一副启动图像 -->
+    <link rel="stylesheet" rel="app-touch-startup-image" href="a.png">
 
     <link rel="stylesheet" href="./normalize.css">
     <link rel="stylesheet" href="./global.css">
@@ -24,8 +28,6 @@
         [flex] {
             background-color: red;
         }
-
-       
     </style>
 </head>
 
