@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <div class="uploadImg">
+            <label for="imgFile"></label>
+            <input type="file" name="imgFile" id="imgFile" multiple>
+        </div>
+    </form>
+    <script>
+        let f = document.getElementById('imgFile');
+        let reader = new FileReader();
+        f.onchange = function () {
+            let files = this.files;
+            myReadFile(files, 0);
+        }
+
+        function myReadFile(file, index) {
+            if (index > file.length - 1) return;
+            reader.readAsDataURL(file[index])
+            reader.onload = function () {
+                console.log(file)
+                createImg(this.result);
+                // reader.readAsDataURL(file[index++])
+                index++;
+                myReadFile(file, index);
+            }
+        }
+
+        //读取完成处理函数
+        function createImg(src) {
+            let img = document.createElement('img');
+            if (typeof src !== 'undefined') {
+                img.src = src;
+                document.body.appendChild(img);
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+
+</html>

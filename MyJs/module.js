@@ -20,10 +20,10 @@ function getQueryArgs() {
     }
     return args;
 }
+
 /**
  * @param  {form字段组成的键值对对象，值不能是数组}obj
  */
-
 function serializeObjUrl(obj) {
     let url = '?';
     for (let item in obj) {
@@ -34,6 +34,31 @@ function serializeObjUrl(obj) {
     return url;
 }
 
+/**创建xhr对象
+ */
+function createXHR() {
+    if (typeof XMLHttpRequest !== 'undefined') {
+        return new XMLHttpRequest();
+    } else if (typeof ActiveXObject !== 'undefined') {
+        let version = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp"],
+            i,
+            len = version.length;
+        for (i = 0; i < len; i++) {
+            try {
+                new ActiveXObject(version[i]);
+                arguments.callee.activeXString = version[i];
+                break;
+            } catch (ex) {
+
+            }
+        }
+        return new ActiveXObject(arguments.callee.activeXString);
+    } else {
+        return new Error('您的浏览器不支持XHR')
+    }
+}
+
 module.export = {
-    getQueryArgs,serializeObjUrl
+    getQueryArgs,
+    serializeObjUrl
 }
