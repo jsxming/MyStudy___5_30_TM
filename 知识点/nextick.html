@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{a}}</h1>
+        <button @click="a++">a++</button>
+        <my-a :a="a"></my-a>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script>
+        let myA = {
+            name:'myA',
+            template:`  <h1>{{a}}</h1>`,
+            data(){
+                return{
+                    b:'bbbb'
+                }
+            },
+            props:{
+                a:{
+                    type:Number
+                }
+            },
+            created(){
+                this.$nextTick(()=>{
+                    console.log(this.a,"===")
+                })
+            }
+        }
+
+        new Vue({
+            el:"#app",
+            data() {
+                return {
+                    a:11
+                }
+            },
+            created() {
+                this.a = 22;
+                this.$nextTick(()=>{
+                    console.log(this.a);
+                })
+            },
+            components:{
+                myA
+            },
+            mounted() {
+                this.a=33;
+              
+            },
+            updated() {
+                console.log(this.a);
+            },
+
+        })
+    
+    </script>
+</body>
+</html>

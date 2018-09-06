@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            height: 300px;
+            width: 300px;
+            background-color: #666;
+            margin-top: 10px !important;
+            display: inline-block;
+            position: relative;
+        }
+        .box1{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+    
+        .box2>div{
+            height: 50px;
+            width: 50px;
+            background-color: #000;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+         .box3>div{
+            
+         }
+    </style>
+</head>
+<body>
+    <h1>元素居中的各种实现</h1>
+    <div class="box box1">
+        <img src="../img/xingm.png" alt="">
+    </div>
+
+
+    <div class="box box2">
+        <div></div>
+    </div>
+
+    <div class="box box3">
+        <div>hello</div>
+    </div>
+</body>
+</html>
