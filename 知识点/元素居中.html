@@ -11,6 +11,7 @@
             width: 300px;
             background-color: #666;
             margin-top: 10px !important;
+            margin-left: 10px !important;
             display: inline-block;
             position: relative;
         }
@@ -31,25 +32,53 @@
             bottom: 0;
             margin: auto;
         }
-
          .box3>div{
-            
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);            
          }
+         .box4{
+             display: flex;
+             justify-content: center;
+             align-items: center;
+         }
+         hr{
+             height: 2px;
+             background-color: #666;
+         }
+
     </style>
 </head>
 <body>
-    <h1>元素居中的各种实现</h1>
+    <h1>元素居中的各种实现：</h1>
+    <h3>table-cell+vertical-align实现:这种方式元素的padding+margin会失效</h3>
     <div class="box box1">
         <img src="../img/xingm.png" alt="">
     </div>
+    <hr>
 
-
+    <h3>position  0 0 0 0  margin:auto 实现 </h3>
     <div class="box box2">
         <div></div>
     </div>
+    <hr>
 
+
+    <h3>absolute+transform: translate(-50%,-50%);兼容到ie7</h3>
     <div class="box box3">
         <div>hello</div>
     </div>
+    <h1>以上4种垂直居中兼容到ie8</h1>
+
+
+    <hr>
+    <h3>flex实现</h3>
+    <div class="box box4">
+        <div>world</div>
+    </div>
+
+   
+
 </body>
 </html>
