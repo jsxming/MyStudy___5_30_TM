@@ -1,5 +1,4 @@
 /* 横竖屏切换时避免设备对文字的自动调整 */
-
 html {
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
@@ -12,7 +11,6 @@ body {
 }
 
 /* 显示方式 */
-
 .box {
     display: block;
 }
@@ -21,70 +19,68 @@ body {
     display: inline-block;
 }
 
-    .flex {
-        display: flex;
-    }
+.flex {
+    display: flex;
+}
 
-    .inline-flex {
-        display: inline-flex;
-    }
+.inline-flex {
+    display: inline-flex;
+}
 
-    .flex-column {
-        flex-direction: column;
-    }
+.flex-column {
+    flex-direction: column;
+}
 
-    .flex-wrap {
-        flex-wrap: wrap;
-    }
+.flex-wrap {
+    flex-wrap: wrap;
+}
 
-    /* flex相关 */
+/* flex相关 */
+.justify-start {
+    justify-content: flex-start;
+}
 
-    .justify-content-start {
-        justify-content: flex-start;
-    }
+.justify-end {
+    justify-content: flex-end;
+}
 
-    .justify-content-end {
-        justify-content: flex-end;
-    }
+.justify-center {
+    justify-content: center;
+}
 
-    .justify-content-center {
-        justify-content: center;
-    }
+.justify-between {
+    justify-content: space-between;
+}
 
-    .justify-content-between {
-        justify-content: space-between;
-    }
+.justify-around {
+    justify-content: space-around;
+}
 
-    .justify-content-around {
-        justify-content: space-around;
-    }
+.align-start {
+    align-items: flex-start;
+}
 
-    .align-items-start {
-        align-items: flex-start;
-    }
+.align-end {
+    align-items: flex-end;
+}
 
-    .align-items-end {
-        align-items: flex-end;
-    }
+.align-center {
+    align-items: center;
+}
 
-    .align-items-center {
-        align-items: center;
-    }
+.align-self-start {
+    align-self: flex-start;
+}
 
-    .align-self-start {
-        align-self: flex-start;
-    }
+.align-self-end {
+    align-self: flex-end;
+}
 
-    .align-self-end {
-        align-self: flex-end;
-    }
-
-    .align-self-center {
-        align-self: center;
-    }
+.align-self-center {
+    align-self: center;
+}
 
 /* 文字颜色 */
-
 .text-primary {
     color: #007bff !important;
 }
@@ -126,7 +122,6 @@ body {
 }
 
 /* 背景色 */
-
 .bg-success {
     color: #28a745 !important;
 }
@@ -160,7 +155,6 @@ body {
 }
 
 /* 清除浮动 */
-
 .clearfix::after {
     display: block;
     content: "";
@@ -168,39 +162,32 @@ body {
 }
 
 /* 浮动 */
-
-.float-left {
+.fl {
     float: left;
 }
 
-.float-right {
+.fr {
     float: right;
 }
 
-.float-none {
-    float: none;
-}
-
 /* 定位 */
-
-.position-static {
+.p-static {
     position: static;
 }
 
-.position-relative {
+.p-relative {
     position: relative;
 }
 
-.position-absolute {
+.p-absolute {
     position: absolute;
 }
 
-.position-fixed {
+.p-fixed {
     position: fixed;
 }
 
 /* 百分比宽高 */
-
 .w-100 {
     width: 100%;
 }
@@ -218,13 +205,8 @@ body {
 }
 
 /* margin-padding */
-
 .mx-auto {
-    margin: 0 auto !important;
-}
-
-.my-auto {
-    margin: auto 0 !important;
+    margin: 0 auto;
 }
 
 .m-15 {
@@ -236,7 +218,6 @@ body {
 }
 
 /* 文本对齐 */
-
 .text-left {
     text-align: left;
 }
@@ -250,14 +231,12 @@ body {
 }
 
 /* 自适应图片 */
-
 .img-fluid {
     max-width: 100%;
     height: auto;
 }
 
 /* 滚动样式 */
-
 ::-webkit-scrollbar {
     max-width: 6px;
     max-height: 7px;
@@ -279,23 +258,3 @@ body {
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
 }
-
-/* 媒体查询规则：从后往前匹配css */
-
-/* 1:默认样式写在所有媒体查询的前面 */
-
-/* 不大于1366px时会匹配到该套样式 */
-
-@media screen and (max-width:1366px) {}
-
-/* 不大于1024px时会匹配到该套样式 */
-
-@media screen and (max-width:1024px) {}
-
-/* 不大于768px时会匹配到该套样式 */
-
-@media screen and (max-width:768px) {}
-
-/* ie9+兼容性：
-    transform,calc
-*/
