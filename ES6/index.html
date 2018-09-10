@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  
+
+
+    <script src="./Proxy.js"></script>
+    <script>
+        console.log(pxy);
+        pxy.name = "111"
+        console.log(pxy);
+        console.log(pxy.name);
+        console.log(pxy.value);
+        console.log(delete pxy.hello);
+
+
+        class person {
+            constructor(name){
+                console.log(new.target);
+            }
+        }
+        class meal extends person{}
+        let a = new person();
+        let m = new meal();
+    </script>
+</body>
+</html>
