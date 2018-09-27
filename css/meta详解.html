@@ -23,7 +23,6 @@
 	<meta http-equiv="Cache-Control" content="no-store, must-revalidate">
 	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
 	<meta http-equiv="expires" content="0">
-
 	<!-- 2.可以在ios设备中从主屏直接启动某个页面的时候，显示一副启动图像 -->
 	<link rel="stylesheet" rel="app-touch-startup-image" href="a.png">
 	<!-- 定义页面浏览器显示网站的图标,只能是ico格式 -->
@@ -45,17 +44,25 @@
 						docEl.style.fontSize = clientWidth / 15 + 'px';
 					}
 				};
-
 			if (!doc.addEventListener) return;
 			win.addEventListener(resizeEvt, recalc, false);
 			doc.addEventListener('DOMContentLoaded', recalc, false);
 		})(document, window);
 	</script>
+	<style>
+		.b{
+			height: 200px;
+			width: 14rem;
+			margin: 0 auto;
+			background-color: #000;
+		}
+	</style>
 </head>
 
 <body>
+<div class="b">
 
-
+</div>
 </body>
 
 </html>
