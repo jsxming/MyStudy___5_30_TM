@@ -12,10 +12,28 @@ module.exports = {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'dist')
     },
+    resolve: {
+        extensions: ['.js', '.json', '.jsx'],
+        //别名配置
+        alias: {
+            assets: path.resolve(__dirname, 'src/assets/'),
+            "@": path.resolve(__dirname, 'src'),
+        }
+    },
     module: {
         rules: [{
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"]
+            },
+            {
+                test: /\.less$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "less-loader"
+                }]
             },
             {
                 test: /\.(png|svg|jpg|gif)/, //处理图片
@@ -29,15 +47,15 @@ module.exports = {
                 }]
             },
             {
-                test: /\.(jsx|js)$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: ['@babel/preset-react']
                     }
-                }
-            }
+                },
+            },
         ]
     },
     plugins: [

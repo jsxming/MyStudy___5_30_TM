@@ -1,10 +1,10 @@
-import './styles/global.css'
-import icon from  './img/dog.png'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import '@/styles/global.less'
+import icon from  '@/img/dog.png'
+import App from './app'
 
-let img = new Image();
-img.src = icon;
 
-let el = document.createElement('h1');
-el.innerText = "hello React --TM";
-document.body.appendChild(el);
-document.body.appendChild(img);
+
+
+ReactDOM.render(<App></App>,document.getElementById('app'))
