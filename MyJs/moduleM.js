@@ -18,6 +18,7 @@ function getQueryArgs() {
             args[name] = value;
         }
     }
+
     return args;
 }
 
@@ -30,7 +31,6 @@ function serializeObjUrl(obj) {
         url += item + '=' + obj[item] + '&';
     }
     url = url.slice(0, url.length - 1);
-    console.log(url);
     return url;
 }
 
@@ -58,7 +58,9 @@ function createXHR() {
     }
 }
 
-module.export = {
+
+export default {
     getQueryArgs,
-    serializeObjUrl
+    serializeObjUrl,
+    createXHR
 }

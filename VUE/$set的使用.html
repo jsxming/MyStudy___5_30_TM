@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <p v-for="(item, index) in a.b" :key="index">
+            {{item}}
+        </p>
+        <h1>{{a.c}}</h1>
+        <h1>{{a.d.a}}</h1>
+
+        <button @click="test()">aa</button>
+    </div>
+    
+    
+    <script src=".//vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                a:{
+                    b:[1,2],
+                    c:"ccc",
+                    d:{
+                        a:'ddd'
+                    }
+                }
+            },
+            methods: {
+                test(){
+                    this.a.b = [2,3,4];
+                    this.a.c = "rsassd";
+                    this.a.d.a = "hello";
+                }
+            },
+        })
+    </script>
+</body>
+</html>

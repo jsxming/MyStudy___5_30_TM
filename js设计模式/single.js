@@ -31,7 +31,6 @@ let conf  = (function(){
         //取值方法
         get(name){
             return test[name] ? console.log(test[name]) : console.log("没有此属性");        
-
         }
     }
 })()
