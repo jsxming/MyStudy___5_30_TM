@@ -21,19 +21,23 @@
 
 <script type="module">
     //中介者模式
-    import Mediator from './mediator.js'
-    let m = new Mediator();
-    m.register('hello',()=>{
-        console.log('hello')
-    })
-    m.register('word',()=>{
-        console.log('word')
-    })
-    m.send('hello');
-    m.send('word');
-    m.delete('word');
-    m.send('word');
-    m.clear();
+    // import Mediator from './mediator.js'
+    // let m = new Mediator();
+    // m.register('hello',()=>{
+    //     console.log('hello')
+    // })
+    // m.register('word',()=>{
+    //     console.log('word')
+    // })
+    // m.send('hello');
+    // m.send('word');
+    // m.delete('word');
+    // m.send('word');
+    // m.clear();
+
 </script>
+
+<script src="./throttler.js"></script>
+
 
 </html>
