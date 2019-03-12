@@ -43,4 +43,52 @@ var fn2 =function(){
 }()
 
 //调用
-fn2.show(3)
+// fn2.show(3)
+
+
+
+let MState = function(){
+    let _currentState = {};
+
+    let states = {
+        jump(){
+            console.log('jump');
+        },
+        move(){
+            console.log('move');
+        },
+        shoot(){
+            console.log('shoot');
+        }
+    }
+
+    let Action  = {
+        changeState(){
+            let arg = arguments;
+            // 每次添加动作时清楚上一次保存的动作
+            _currentState = {};
+            if(arg.length){
+                for (let index = 0; index < arg.length; index++) {
+                    _currentState[arg[index]] = true;
+                    console.warn(arg[index]);
+                }
+            }
+            return this;   
+        },
+        goes(){
+            console.log("触发动作");
+            for(let i in _currentState){
+                states[i] && states[i]();
+            }
+            return this;
+        }
+    }
+
+    return {
+        change:Action.changeState,
+        goes:Action.goes
+    }
+}
+
+
+MState().change('jump','shoot').goes().change('shoot').goes();
