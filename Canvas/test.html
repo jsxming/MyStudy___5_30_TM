@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        #app{
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        #canvas{
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .test{
+            border: 1px solid #eee;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin: 50px;
+            overflow: hidden;
+        }
+        .test img{
+            position: absolute;
+        }
+        .test .imga{
+            top: 100px;
+            left: 200px;
+        }
+        .test .imgb{
+            top: 10px;
+            left: 10px;
+        }
+        canvas{
+            border: 1px solid #ccc;
+            margin-left: 100px;
+        }
+        .img-box{
+            position: relative;
+            height: 600px;
+            width: 1200px;
+            margin: 0 auto;
+            top: 50px;
+            border: 2px solid #eee;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <div>
+            <h1>
+                stroke color
+                <input type="color" name="" id="" ref="strokeStyleSelect">
+                <hr>
+                <input type="color" name="" id="" ref="fillStyleSelect">
+                <hr>
+                <select name="" id="" ref="sidesSelect">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <input type="number" name="" id="" ref="eraseAllButton">
+
+                <hr>
+                fillCheckbox
+                <input type="checkbox" name="" id="" ref='fillCheckbox'>
+                <hr>
+                editCheckbox
+                <input type="checkbox" name="" id="" ref='editCheckbox'>
+            </h1>
+            
+        </div>
+        <hr>        
+        <canvas ref="canvas" id='canvas' width="1200" height="600"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        let Point = function(x,y){
+            this.x = x;
+            this.y = y
+        }
+
+        let Polygon  = function(centerX,centerY,radius,sides,startAngle,strokeStyle,fillStyle,filled){
+            this.x = centerX;
+            this.y = centerY;
+            this.radius =radius;
+            this.sides = sides;
+            this.startAngle = startAngle;
+            this.strokeStyle = strokeStyle;
+            this.fillStyle = fillStyle;
+            this.filled = filled;
+            console.warn(sides);
+        }
+
+        Polygon.prototype = {
+            getPoints(){
+                let points = [],
+                    angle = this.startAngle || 0;
+
+                for (let index = 0; index < this.sides; ++index) {
+                    points.push(new Point(
+                        this.x+this.radius*Math.sin(angle),
+                        this.y+this.radius*Math.cos(angle),
+                    ))
+                    angle += 2*Math.PI / this.sides;
+                }
+
+                return points;
+            },
+            createPath(context){
+                let points = this.getPoints();
+                context.beginPath();
+                context.moveTo(points[0].x, points[0].y);
+           
+                for (let i = 0; i < this.sides; ++i) {
+                    context.lineTo(points[i].x, points[i].y);
+                }
+
+                context.closePath();
+            },
+            stroke(context){
+                context.save();
+                this.createPath(context);
+                context.strokeStyle=this.strokeStyle;
+                context.stroke();
+                context.restore();
+            },
+            fill(context){
+                context.save();
+                this.createPath(context);
+                context.fillStyle=this.fillStyle;
+                context.fill();
+                context.restore();
+            },
+            move(x,y){
+                this.x =x;
+                thisxy = y;
+            }
+        }
+
+
+        new Vue({
+            el:"#app",
+            data() {
+                return {
+                    
+                }
+            },
+            methods: {
+                
+            },
+            mounted() {
+                let  canvas = this.$refs.canvas,
+                    context = canvas.getContext('2d');
+
+                let eraseAllButton = this.$refs.eraseAllButton;
+                let strokeStyleSelect = this.$refs.strokeStyleSelect;
+                let fillStyleSelect = this.$refs.fillStyleSelect;
+                let fillCheckbox = this.$refs.fillCheckbox;
+                let editCheckbox = this.$refs.editCheckbox;
+                let sidesSelect = this.$refs.sidesSelect;
+
+                let drawingSurfaceImageData,
+                    mousedown = {},
+                    rubberbandRect = {},
+                    dragging = false,
+                    draggingOffsetX,
+                    draggingOffsetY,
+                    sides = 8,
+                    startAngle = 0,
+                    guidewires = true,
+                    editing = false,
+                    polygons = [];
+
+                function getCanvasPoint(x,y){
+                    let p = canvas.getBoundingClientRect();
+                    return {
+                        x:(x-p.left)*(canvas.width/p.width),
+                        y:(y-p.top)*(canvas.height/p.height),
+                    }
+                }
+
+                function saveDrawingSurface(){
+                    drawingSurfaceImageData = context.getImageData(0, 0, canvas.width,canvas.height);
+                }
+
+                function restoreDrawingSurface(){
+                    context.putImageData(drawingSurfaceImageData, 0,0);
+                }
+
+                function drawPolygon(polygon){
+                    context.beginPath();
+                    polygon.createPath(context);
+                    polygon.stroke(context);
+                    if(fillCheckbox.checked){
+                        polygon.fill(context)
+                    }
+                }
+
+                function updateRubberandRectangle(loc){
+                    rubberbandRect.width = Math.abs(loc.x -  mousedown.x);
+                    rubberbandRect.height = Math.abs(loc.y -  mousedown.y);
+                    if(loc.x>mousedown.x){
+                        rubberbandRect.left = mousedown.x;
+                    }else{
+                        rubberbandRect.left = loc.x;
+                    }
+
+                    if(loc.y>mousedown.y){
+                        rubberbandRect.top = mousedown.y;
+                    }else{
+                        rubberbandRect.top = loc.y;
+                    }
+                }
+
+                function drawRubberbandShape(loc,sides,startAngle){
+                    let polygon = new Polygon(
+                        mousedown.x,
+                        mousedown.y,
+                        rubberbandRect.width,
+                        parseInt(sidesSelect.value),
+                        (Math.PI / 180) * parseInt(startAngle),
+                        context.strokeStyle,
+                        context.fillStyle,
+                        fillCheckbox.checked
+                    )
+                    drawPolygon(polygon);
+                    if(!dragging){
+                        polygons.push(polygon);
+                    }
+                }
+
+                function updateRubberband(loc,sides,startAngle){
+                    updateRubberandRectangle(loc);
+                    drawRubberbandShape(loc,sides,startAngle);
+                }
+
+
+                function drawHorizontalLine(y){
+                    context.beginPath();
+                    context.moveTo(0,y+0.5);
+                    context.lineTo(context.canvas.width,y+0.5);
+                    context.stroke();
+                    
+                }
+
+                function drawVerticalLine(x){
+                    context.beginPath();
+                    context.moveTo(x+0.5,0);
+                    context.lineTo(x+0.5,context.canvas.height);
+                    context.stroke();
+                }
+
+
+                function drawGuidewires(x,y){
+                    context.save();
+                    context.strokeStyle='rgba(0,0,230,0.4)';
+                    drawVerticalLine(x);
+                    drawHorizontalLine(y);
+                    context.restore();
+                }
+
+
+                function drawPolygons(){
+                    polygons.forEach(item=>{
+                        drawPolygon(item);
+                    })
+                }
+
+                function startDrawgging(loc){
+                    saveDrawingSurface();
+                    mousedown.x = loc.x;
+                    mousedown.y = loc.y;
+                }
+
+
+                function startEditing(){
+                    canvas.style.cursor = 'pointer';
+                    editing = true;
+                }
+
+                function stopEditing(){
+                    canvas.style.cursor = 'crosshair';
+                    editing = false;
+                }
+
+                canvas.onmousedown = function(e){
+                    let loc = getCanvasPoint(e.clientX,e.clientY);
+                    e.preventDefault();
+                    if(editing){
+                        polygons.forEach(item=>{
+                            if(context.isPointInPath(loc.x, loc.y)){
+                                startDrawgging(loc);
+                                dragging = item;
+                                draggingOffsetX = loc.x- item.x;
+                                draggingOffsetY = loc.x- item.y;
+                                return
+                            }
+                        })
+                    }else{
+                        startDrawgging(loc);
+                        dragging = true;
+                    }
+                }
+
+                canvas.onmousemove= function(e){
+                    let loc = getCanvasPoint(e.clientX,e.clientY);
+                    e.preventDefault();
+                    if(editing && dragging){
+                        dragging.x = loc.x-draggingOffsetX;
+                        dragging.y = loc.x-draggingOffsetY;
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        // ....drawGrid
+                        drawPolygons();                        
+                    }else{
+                        if(dragging){
+                            restoreDrawingSurface();
+                            updateRubberband(loc,sides,startAngle);
+                            if(guidewires){
+                                drawGuidewires(mousedown.x,mousedown.y);
+                            }
+                        }
+                    }                    
+                }
+
+
+                canvas.onmouseup = function(e){
+                    let loc = getCanvasPoint(e.clientX,e.clientY);
+                    dragging = false;
+
+                    if(!editing){
+                        restoreDrawingSurface();
+                        updateRubberband(loc);
+                    }
+                }
+
+
+                eraseAllButton.onClick = function(e){
+                    context.clearRect(0, 0, cavas.width, canvas.height);
+                    // ...drawGrid
+                    saveDrawingSurface();
+                }
+
+                strokeStyleSelect.onchange = function(e){
+                    context.fillStyle=fillStyleSelect.value;
+                    
+                }
+
+                editCheckbox.onchange = function(e){
+                    if(editCheckbox.checked){
+                        startEditing();
+                    }else{
+                        stopEditing();
+                    }
+                }
+
+
+                context.strokeStyle= strokeStyleSelect.value;
+                context.fillStyle=fillStyleSelect.value;
+                context.shadowColor='tgba(0,0,0,0.4)';
+                context.shadowOffsetX=2;
+                context.shadowOffsetY=2;
+                context.shadowBlur=4;
+
+                
+                
+                
+                
+                
+
+
+
+
+
+
+            },  
+        })
+    
+    </script>
+</body>
+</html>

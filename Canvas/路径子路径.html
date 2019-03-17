@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        #app{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        #canvas{
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <canvas ref="canvas" id='canvas' width="1200" height="800"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return {
+
+                }
+            },
+            mounted() {
+                let canvas = this.$refs.canvas,
+                    context = canvas.getContext("2d");
+               
+                // context.beginPath();
+                
+                context.rect(0, 10, 100, 100);
+                context.stroke();
+
+                //调用该方法清除上一次的子路径，这样就不会把上次的子路径一起绘制了
+                // 如果不调用 会把上次的这个子路径context.rect(0, 10, 100, 100)重绘一次
+                context.beginPath();
+                context.rect(50,50,100,100);
+                context.stroke(); 
+                
+            },
+        })
+    </script>
+</body>
+</html>

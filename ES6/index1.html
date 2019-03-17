@@ -32,7 +32,17 @@
 
     <script src="./class.js"></script>
     <script>
-    
+        async function test(){
+            Promise.reject("...")
+        }
+
+        test().then(res=>{
+            // console.warn(res)
+        },err=>{
+            console.log(err)
+        })
+
+        console.warn(sessionStorage.a);
     </script>
 </body>
 </html>

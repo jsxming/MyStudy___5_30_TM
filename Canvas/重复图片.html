@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        #app{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        #canvas{
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <canvas ref="canvas" id='canvas' width="1200" height="800"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return {
+
+                }
+            },
+            mounted() {
+                let canvas = this.$refs.canvas,
+                    context = canvas.getContext("2d");
+                    that = this,
+                    num = 10;
+                let img = new Image();
+                img.src = "./house.png";
+                
+                function contextdraw(img,str){
+                    num+=100;
+                    let pattern = context.createPattern(img, str);
+                    context.fillStyle=pattern;
+                    context.fillRect(0,0,canvas.width,canvas.height);
+                    context.fill();
+                }
+
+                img.onload = function(){
+                    // contextdraw(this,'repeat');
+                    contextdraw(this,'repeat-x');
+                    contextdraw(this,'repeat-y');
+                    // contextdraw(this,'no-repeat');
+                }
+
+            },
+        })
+    </script>
+</body>
+</html>
