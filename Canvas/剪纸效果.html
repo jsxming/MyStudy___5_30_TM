@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        #app{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        #canvas{
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <canvas ref="canvas" id='canvas' width="1200" height="800"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./public.js"></script>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return {
+
+                }
+            },
+            methods:{
+
+            },
+            mounted() {
+                let canvas = this.$refs.canvas;
+                let context = canvas.getContext("2d");
+                let cw = canvas.width;
+                let ch = canvas.height;
+
+                function strokeCutoutShapes(){
+                    context.save();
+                    strokeStyle = 'rgba(0,0,0,0.7)';
+                    context.beginPath();
+                    addOuterRectanglePath();
+                    context.stroke();
+                    context.beginPath();
+                    addCirclePath();
+                    addRectanglePath();
+                    addTrianglePath();
+                    context.stroke();
+                    context.restore();
+                }
+
+                function rect(x,y,w,h,direction){
+                    if(direction){
+                        context.moveTo(x, y);
+                        context.lineTo(x, y+h);
+                        context.lineTo(x+w, y+h);
+                        context.lineTo(x+w, y);
+                        context.closePath();
+                    }else{
+                        context.moveTo(x, y);
+                        context.lineTo(x+w, y);
+                        context.lineTo(x+w, y+h);
+                        context.lineTo(x, y+h);
+                        context.closePath();
+                    }
+                }
+
+                function addOuterRectanglePath(){
+                    context.rect(110, 25, 370, 335);
+                }
+
+                function addCirclePath(){
+                    context.arc(300, 300, 40, 0, Math.PI / 180 * 2, true);
+                }
+
+                function addRectanglePath(){
+                    rect(310,55,70,35,true);
+                }
+
+                function addTrianglePath(){
+                    context.moveTo(400, 200);
+                    context.lineTo(250, 115);
+                    context.lineTo(200, 200);
+                    context.closePath();
+                }
+
+                function draw(){
+                    context.clearRect(0, 0, cw, ch);
+                    drawGrid(context,'lightgray',30,30);
+                    context.save();
+                    context.shadowColor='rgba(200,200,0,0.5)';
+                    context.shadowOffsetX=12;
+                    context.shadowOffsetY=12;
+                    context.shadowBlur=15;
+                    drawCutouts();
+                    strokeCutoutShapes();
+                    context.restore();
+                }
+
+                function drawCutouts(){
+                    context.beginPath();
+                    addOuterRectanglePath();
+                    addCirclePath();
+                    addRectanglePath();
+                    addTrianglePath();
+                    context.fill();
+                }
+
+
+                context.fillStyle='goldenrod';
+
+                draw();
+            },
+        })
+    </script>
+</body>
+</html>
